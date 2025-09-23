@@ -1,0 +1,143 @@
+type Contract @entity(immutable: true) {
+  id: ID!
+  address: Bytes!
+  version: String! # Format: "major.minor"
+  majorVersion: Int!
+  minorVersion: Int!
+  ohmToken: Token!
+  gohmToken: Token!
+  reserveToken: Token!
+  sReserveToken: Token!
+}
+
+type Token @entity(immutable: true) {
+  id: ID!
+  address: Bytes!
+  symbol: String!
+  name: String!
+  decimals: Int!
+}
+
+type Activation @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Deactivation @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BackingChange @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  newBacking: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BackingUpdate @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  newBacking: BigInt!
+  newBackingDecimal: BigDecimal! # Adjusted for 18 decimals
+  supplyAdded: BigInt!
+  supplyAddedDecimal: BigDecimal! # Adjusted for 9 decimals (OHM scale)
+  reservesAdded: BigInt!
+  reservesAddedDecimal: BigDecimal! # Adjusted for reserve token decimals
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BaseRateChange @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  changeBy: BigInt!
+  changeByDecimal: BigDecimal! # Adjusted for 9 decimals (OHM scale)
+  forNumBeats: BigInt!
+  add: Boolean!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MinimumPremiumChange @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  newMinimumPremium: BigInt!
+  newMinimumPremiumDecimal: BigDecimal! # Adjusted for 18 decimals
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BondContractsSet @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  auctioneer: Bytes!
+  teller: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SaleCreated @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  marketID: BigInt!
+  saleAmount: BigInt!
+  saleAmountDecimal: BigDecimal! # Adjusted for reserve token decimals
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VestingPeriodChange @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  newVestingPeriod: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RestartTimeframeChange @entity(immutable: true) {
+  id: Bytes!
+  contract: Contract!
+  newRestartTimeframe: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# Contract state at a specific block (mutable, can be overwritten within same block)
+type ContractState @entity(immutable: false) {
+  id: ID! # contract address + block number
+  contract: Contract!
+  isActive: Boolean!
+  isEnabled: Boolean!
+  baseEmissionRate: BigInt!
+  baseEmissionRateDecimal: BigDecimal! # Adjusted for 9 decimals (OHM scale)
+  minimumPremium: BigInt!
+  minimumPremiumDecimal: BigDecimal! # Adjusted for 18 decimals
+  backing: BigInt!
+  backingDecimal: BigDecimal! # Adjusted for 18 decimals
+  vestingPeriod: BigInt!
+  restartTimeframe: BigInt!
+  shutdownTimestamp: BigInt!
+  activeMarketId: BigInt!
+  beatCounter: Int!
+  bondAuctioneer: Bytes!
+  bondTeller: Bytes!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
