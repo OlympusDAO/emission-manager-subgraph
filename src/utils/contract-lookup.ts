@@ -26,7 +26,7 @@ export function getOrCreateContract(contractAddress: Address): Contract {
     const sReserveToken = getOrCreateToken(sReserveTokenAddress);
 
     contract.address = contractAddress;
-    contract.version = "1.0.0"; // Default version
+    contract.version = "1.0"; // Default version
     contract.majorVersion = 1;
     contract.minorVersion = 0;
     contract.ohmToken = ohmToken.id;

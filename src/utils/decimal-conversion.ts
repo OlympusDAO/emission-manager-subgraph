@@ -28,3 +28,8 @@ export function toEmissionRateDecimal(value: BigInt): BigDecimal {
 export function toPremiumDecimal(value: BigInt): BigDecimal {
   return toDecimal(value, 18);
 }
+
+// Convert reserve token values (using token's decimal count)
+export function toReserveDecimal(value: BigInt, decimals: i32): BigDecimal {
+  return toDecimal(value, decimals);
+}

@@ -1,4 +1,4 @@
-import { ethereum } from "@graphprotocol/graph-ts";
+import { Address, ethereum } from "@graphprotocol/graph-ts";
 
 import {
   Activated as ActivatedEvent,
@@ -33,7 +33,9 @@ import {
   toEmissionRateDecimal,
   toOHMDecimal,
   toPremiumDecimal,
+  toReserveDecimal,
 } from "../utils/decimal-conversion";
+import { getOrCreateToken } from "../utils/token-lookup";
 
 // Helper function to update the current state entity
 function updateContractState(contract: Contract, event: ethereum.Event): void {
@@ -120,7 +122,10 @@ export function handleBackingUpdated(event: BackingUpdatedEvent): void {
   backingUpdate.supplyAdded = event.params.supplyAdded;
   backingUpdate.supplyAddedDecimal = toOHMDecimal(event.params.supplyAdded);
   backingUpdate.reservesAdded = event.params.reservesAdded;
-  // TODO: Add reservesAddedDecimal with token lookup when needed
+  backingUpdate.reservesAddedDecimal = toReserveDecimal(
+    event.params.reservesAdded,
+    getOrCreateToken(Address.fromString(contract.reserveToken)).decimals
+  );
   backingUpdate.blockNumber = event.block.number;
   backingUpdate.blockTimestamp = event.block.timestamp;
   backingUpdate.transactionHash = event.transaction.hash;
@@ -189,7 +194,10 @@ export function handleSaleCreated(event: SaleCreatedEvent): void {
   saleCreated.contract = contract.id;
   saleCreated.marketID = event.params.marketID;
   saleCreated.saleAmount = event.params.saleAmount;
-  // TODO: Add saleAmountDecimal with token lookup when needed
+  saleCreated.saleAmountDecimal = toReserveDecimal(
+    event.params.saleAmount,
+    getOrCreateToken(Address.fromString(contract.reserveToken)).decimals
+  );
   saleCreated.blockNumber = event.block.number;
   saleCreated.blockTimestamp = event.block.timestamp;
   saleCreated.transactionHash = event.transaction.hash;
