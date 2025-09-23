@@ -1,13 +1,13 @@
 {
-  "name": "olympus-emissionmanager",
+  "name": "olympus-emission-manager",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "rm -rf generated/ && graph codegen",
     "build": "graph build",
-    "deploy": "source .subgraph-version && source .env && graph deploy --version-label $SUBGRAPH_VERSION --deploy-key $GRAPH_STUDIO_TOKEN olympus-emissionmanager",
-    "create-local": "graph create --node http://localhost:8020/ olympus-emissionmanager",
-    "remove-local": "graph remove --node http://localhost:8020/ olympus-emissionmanager",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 olympus-emissionmanager",
+    "deploy": "source .subgraph-version && source .env && graph deploy --version-label $SUBGRAPH_VERSION --deploy-key $GRAPH_STUDIO_TOKEN olympus-emission-manager",
+    "create-local": "graph create --node http://localhost:8020/ olympus-emission-manager",
+    "remove-local": "graph remove --node http://localhost:8020/ olympus-emission-manager",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 olympus-emission-manager",
     "test": "graph test",
     "lint": "eslint . --fix && prettier --write --no-error-on-unmatched-pattern '**/*.ts' '**/*.json' '**/*.yml' '**/*.yaml' '**/*.graphql'"
   },
