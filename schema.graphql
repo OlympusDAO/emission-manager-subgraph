@@ -8,6 +8,7 @@ type Contract @entity(immutable: true) {
   gohmToken: Token!
   reserveToken: Token!
   sReserveToken: Token!
+  states: [ContractState!]! @derivedFrom(field: "contract")
 }
 
 type Token @entity(immutable: true) {
@@ -21,6 +22,7 @@ type Token @entity(immutable: true) {
 type Activation @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -29,6 +31,7 @@ type Activation @entity(immutable: true) {
 type Deactivation @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -37,6 +40,7 @@ type Deactivation @entity(immutable: true) {
 type BackingChange @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   newBacking: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -46,6 +50,7 @@ type BackingChange @entity(immutable: true) {
 type BackingUpdate @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   newBacking: BigInt!
   newBackingDecimal: BigDecimal! # Adjusted for 18 decimals
   supplyAdded: BigInt!
@@ -60,6 +65,7 @@ type BackingUpdate @entity(immutable: true) {
 type BaseRateChange @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   changeBy: BigInt!
   changeByDecimal: BigDecimal! # Adjusted for 9 decimals (OHM scale)
   forNumBeats: BigInt!
@@ -72,6 +78,7 @@ type BaseRateChange @entity(immutable: true) {
 type MinimumPremiumChange @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   newMinimumPremium: BigInt!
   newMinimumPremiumDecimal: BigDecimal! # Adjusted for 18 decimals
   blockNumber: BigInt!
@@ -82,6 +89,7 @@ type MinimumPremiumChange @entity(immutable: true) {
 type BondContractsSet @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   auctioneer: Bytes!
   teller: Bytes!
   blockNumber: BigInt!
@@ -92,9 +100,10 @@ type BondContractsSet @entity(immutable: true) {
 type SaleCreated @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
-  marketID: BigInt!
+  contractState: ContractState!
+  marketId: BigInt!
   saleAmount: BigInt!
-  saleAmountDecimal: BigDecimal! # Adjusted for reserve token decimals
+  saleAmountDecimal: BigDecimal! # Adjusted for 9 decimals (OHM scale)
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -103,6 +112,7 @@ type SaleCreated @entity(immutable: true) {
 type VestingPeriodChange @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   newVestingPeriod: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -112,6 +122,7 @@ type VestingPeriodChange @entity(immutable: true) {
 type RestartTimeframeChange @entity(immutable: true) {
   id: Bytes!
   contract: Contract!
+  contractState: ContractState!
   newRestartTimeframe: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -140,4 +151,14 @@ type ContractState @entity(immutable: false) {
   transactionHash: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+  activations: [Activation!]! @derivedFrom(field: "contractState")
+  deactivations: [Deactivation!]! @derivedFrom(field: "contractState")
+  backingChanges: [BackingChange!]! @derivedFrom(field: "contractState")
+  backingUpdates: [BackingUpdate!]! @derivedFrom(field: "contractState")
+  baseRateChanges: [BaseRateChange!]! @derivedFrom(field: "contractState")
+  minimumPremiumChanges: [MinimumPremiumChange!]! @derivedFrom(field: "contractState")
+  bondContractsSets: [BondContractsSet!]! @derivedFrom(field: "contractState")
+  salesCreated: [SaleCreated!]! @derivedFrom(field: "contractState")
+  vestingPeriodChanges: [VestingPeriodChange!]! @derivedFrom(field: "contractState")
+  restartTimeframeChanges: [RestartTimeframeChange!]! @derivedFrom(field: "contractState")
 }
