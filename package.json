@@ -1,0 +1,29 @@
+{
+  "name": "olympus-emissionmanager",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "rm -rf generated/ && graph codegen",
+    "build": "graph build",
+    "deploy": "source .subgraph-version && source .env && graph deploy --version-label $SUBGRAPH_VERSION --deploy-key $GRAPH_STUDIO_TOKEN olympus-emissionmanager",
+    "create-local": "graph create --node http://localhost:8020/ olympus-emissionmanager",
+    "remove-local": "graph remove --node http://localhost:8020/ olympus-emissionmanager",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 olympus-emissionmanager",
+    "test": "graph test",
+    "lint": "eslint . --fix && prettier --write --no-error-on-unmatched-pattern '**/*.ts' '**/*.json' '**/*.yml' '**/*.yaml' '**/*.graphql'"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.97.1",
+    "@graphprotocol/graph-ts": "^0.38.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.23.1",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "matchstick-as": "0.6.0",
+    "prettier": "^3.6.2",
+    "typescript": "^4.8.4"
+  },
+  "packageManager": "yarn@1.22.22"
+}
