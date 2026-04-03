@@ -59,7 +59,7 @@ emissionmanager-subgraph/
 
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Copy .env.example to .env and configure
 cp .env.example .env
@@ -69,16 +69,16 @@ cp .env.example .env
 
 ```bash
 # Generate types from schema
-yarn codegen
+pnpm codegen
 
 # Build the subgraph
-yarn build
+pnpm build
 
 # Run tests
-yarn test
+pnpm test
 
 # Lint code
-yarn lint
+pnpm lint
 ```
 
 ### Important: Linting and Building
@@ -87,13 +87,13 @@ yarn lint
 
 ```bash
 # After any code changes, run linting first
-yarn lint
+pnpm lint
 
 # Then build to verify everything compiles correctly
-yarn build
+pnpm build
 
 # Generate code if schema changes were made
-yarn codegen
+pnpm codegen
 ```
 
 This ensures that:
@@ -107,13 +107,13 @@ This ensures that:
 
 ```bash
 # Create local subgraph
-yarn create-local
+pnpm create-local
 
 # Deploy to local node
-yarn deploy-local
+pnpm deploy-local
 
 # Deploy to Graph Studio (requires .env configuration)
-yarn deploy
+pnpm deploy
 ```
 
 ## Important Notes
@@ -170,9 +170,9 @@ tests/
 - Monitor contract upgrades and update ABI if needed
 - Add new event handlers if contract is upgraded
 - Review and optimize queries periodically
-- Use yarn in this repo
+- Use pnpm in this repo
 
-## Recent Development Session (2025-09-23)
+## Recent Development Session
 
 ### Completed Tasks
 
@@ -199,7 +199,7 @@ tests/
 
 All changes have been validated through the build process:
 ```bash
-yarn codegen && yarn build && yarn lint
+pnpm codegen && pnpm build && pnpm lint
 ```
 
 The subgraph is now in a clean, production-ready state with complete documentation and enhanced relationship querying capabilities.
