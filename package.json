@@ -11,7 +11,7 @@
     "test": "graph test",
     "lint": "eslint . --fix && prettier --write --no-error-on-unmatched-pattern '**/*.ts' '**/*.json' '**/*.yml' '**/*.yaml' '**/*.graphql'",
     "lint:check": "eslint . --max-warnings 0",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow@1.2.2 pnpm"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.97.1",
