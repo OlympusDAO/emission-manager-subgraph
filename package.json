@@ -10,6 +10,7 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 olympus-emission-manager",
     "test": "graph test",
     "lint": "eslint . --fix && prettier --write --no-error-on-unmatched-pattern '**/*.ts' '**/*.json' '**/*.yml' '**/*.yaml' '**/*.graphql'",
+    "lint:check": "eslint . --max-warnings 0",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
@@ -36,7 +37,8 @@
   "pnpm": {
     "overrides": {
       "@isaacs/brace-expansion": ">=5.0.1",
-      "ajv": ">=6.14.0",
+      "@pnpm/npm-conf": ">=3.0.2",
+      "ajv": "6.12.6",
       "axios": ">=0.30.3",
       "brace-expansion": ">=2.0.3",
       "cross-spawn": ">=7.0.5",
