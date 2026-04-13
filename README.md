@@ -62,7 +62,7 @@ The schema now supports comprehensive relationship querying:
 
 ### Prerequisites
 
-- Node.js (v16+)
+- Node.js 24+
 - Yarn package manager
 
 ### Setup
